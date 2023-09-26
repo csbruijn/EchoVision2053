@@ -11,8 +11,8 @@ public class EchoLocationBehaviour : MonoBehaviour
 
 
 
-    public float maxRadius = 1.0f;
-    public float Radiusrate = 1.0f;
+    public float maxRadius = 10.0f;
+    public float Radiusrate = .025f;
 
     private float newRadius = 0f;
 

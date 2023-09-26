@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_Paint
-  m_Shader: {fileID: 4800000, guid: 64f3e6b218b208746b1c4ea73aa4db87, type: 3}
+  m_Shader: {fileID: 4800000, guid: 87d60876a4134f348bd7e50399dc7d30, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -25,10 +25,10 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _FullShade: 1.16
-    - _Radius: 10.27
+    - _Radius: 5.02501
     - _SemiShade: 4.77
     m_Colors:
-    - _Center: {r: 3.07, g: 3.06, b: -2.7352312, a: 0}
+    - _Center: {r: -8.923918, g: 1.0347195, b: 13.075068, a: 0}
     - _Color: {r: 0.7607843, g: 0.9887975, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5719753434936524917
