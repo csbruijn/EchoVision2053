@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Paint
+  m_Name: EchoDark
   m_Shader: {fileID: 4800000, guid: 87d60876a4134f348bd7e50399dc7d30, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -24,11 +24,13 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _FullShade: 1.16
-    - _Radius: 5.02501
-    - _SemiShade: 4.77
+    - _FullShade: 0.2
+    - _Radius: 1.5749987
+    - _Radius2: 2.235
+    - _SemiShade: 4.22
     m_Colors:
-    - _Center: {r: -8.923918, g: 1.0347195, b: 13.075068, a: 0}
+    - _Center: {r: -10.250261, g: 1.0347195, b: -5.7120714, a: 0}
+    - _Center2: {r: 8, g: 0, b: 2, a: 0}
     - _Color: {r: 0.7607843, g: 0.9887975, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5719753434936524917
