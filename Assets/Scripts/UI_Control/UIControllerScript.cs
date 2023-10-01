@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class SubtitlesScript : MonoBehaviour
+public class UIControllerScript : MonoBehaviour
 {
 
     public TMP_Text textBox;
@@ -16,16 +16,10 @@ public class SubtitlesScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(TheSequence());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 
-    IEnumerator TheSequence()
+    public IEnumerator TheSequence()
     {
         yield return new WaitForSeconds(1);
         firstLineSubtitles.Play();
