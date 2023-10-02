@@ -42,7 +42,7 @@ public class EchoLocationBehaviour : MonoBehaviour
     private void Update()
     {
 
-        ExtraEcho(testVolume, testLocation);
+        ExternalEcho(testVolume, testLocation);
 
 
         if (!echoActive)
@@ -58,14 +58,7 @@ public class EchoLocationBehaviour : MonoBehaviour
         }
     }
 
-    //private void SendEchoPerformed(SendEcho.CallbackContext context)
-    //{
-    //    if (!echoActive)
-    //    {
-    //        EchoLocaUpdate();
-    //        echoActive = true;
-    //    }
-    //}
+   
 
     void SendEcho()
     {
@@ -85,7 +78,10 @@ public class EchoLocationBehaviour : MonoBehaviour
     }
 
 
-    
+    void ExternalSoundLoca()
+    {
+        
+    }
 
     void EchoLocaUpdate()
     {
@@ -93,8 +89,9 @@ public class EchoLocationBehaviour : MonoBehaviour
         EchoRender.SetVector("_Center", newCenterX);
     }
 
-    void ExtraEcho(float _volume, Vector3 _position)
+    void ExternalEcho(float _volume, Vector3 _position)
     {
+        
         EchoRender.SetVector("_Center2", _position);
 
         if (newRadius2 < _volume)
