@@ -7,63 +7,80 @@ public class EchoLocationBehaviour : MonoBehaviour
 {
 
     public float testVolume = 5f;
-    public Vector3 testLocation; 
+    public Vector3 testLocation;
 
+    [Header("Health Settings")]
     public Material EchoRender; 
     public Transform SoundLocation;
 
     //public Transform[] spawnPositions;
 
-
+    [Header("Echo Variables ")]
     public float maxRadius = 10.0f;
     public float Radiusrate = .025f;
+
+
+
 
     private float newRadius = 0f;
     private float newRadius2 = 0f;
 
     private Vector3 newCenterX;
     private bool echoActive;
+    private bool echoExternalActive;
 
-    
-
+    //public string tagToDetect = "interactableEcho";
+    //private Vector3 collisionPoint;
 
 
     private void Start()
     {
         //EchoRender = GameObject.Find("EchoDark").GetComponent<Material>();
 
+        echoExternalActive = false;
+        newRadius = 0f;
+        newRadius2 = 0f;
+
+
+
         if (EchoRender == null)
         {
             Debug.LogError("Target Renderer is not assigned!");
-            return;
         }
     }
 
     private void Update()
     {
-
-        ExternalEcho(testVolume, testLocation);
-
-
-        if (!echoActive)
-        {
+        if (!echoActive) {
             EchoLocaUpdate();
             echoActive = true;
         }
 
 
-        if (echoActive)
-        {
+        if (echoActive) {
             SendEcho();
+        }
+
+        if (echoExternalActive)
+        {
+            ExternalEchoUpdate(testVolume);
         }
     }
 
-   
+    
+
+    public void SetCollisionPoint(Vector3 collisionPoint, float volume)
+    {
+        testVolume = volume;
+        EchoRender.SetVector("_Center2", collisionPoint);
+
+
+        echoExternalActive = true;
+    }
+
 
     void SendEcho()
     {
-        //foreach (Transform position in spawnPositions)
-
         if (newRadius < maxRadius)
         {
             newRadius = newRadius + Radiusrate;
@@ -78,33 +95,27 @@ public class EchoLocationBehaviour : MonoBehaviour
     }
 
 
-    void ExternalSoundLoca()
-    {
-        
-    }
-
     void EchoLocaUpdate()
     {
         Vector3 newCenterX = SoundLocation.position;
         EchoRender.SetVector("_Center", newCenterX);
     }
 
-    void ExternalEcho(float _volume, Vector3 _position)
+    void ExternalEchoUpdate(float maxRadius)
     {
-        
-        EchoRender.SetVector("_Center2", _position);
-
-        if (newRadius2 < _volume)
+        if (echoExternalActive)
         {
-            newRadius2 = newRadius2 + Radiusrate;
+            if (newRadius2 < maxRadius)
+            {
+                newRadius2 = newRadius2 + Radiusrate;
+            }
+            else
+            {
+                newRadius2 = 0f;
+                echoExternalActive = false;
+            }
+            EchoRender.SetFloat("_Radius2", newRadius2);
         }
-        else
-        {
-            newRadius2 = 0f;
-
-        }
-        EchoRender.SetFloat("_Radius2", newRadius2);
-
     }
 
 }
