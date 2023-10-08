@@ -28,11 +28,11 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _FullShade: 0.2
-    - _Radius: 8.084978
-    - _Radius2: 1.0649992
+    - _Radius: 2.4300013
+    - _Radius2: 3.390008
     - _SemiShade: 4.22
     m_Colors:
-    - _Center: {r: 0, g: 1.0347195, b: 0, a: 0}
+    - _Center: {r: -8.622999, g: 1.0347195, b: -9.163248, a: 0}
     - _Center2: {r: 8, g: 0, b: 2, a: 0}
     - _Color: {r: 0.7607843, g: 0.9887975, b: 1, a: 1}
   m_BuildTextureStacks: []
