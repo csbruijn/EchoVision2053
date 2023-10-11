@@ -7,6 +7,7 @@ TagManager:
   - Anchor
   - TextShower
   - interactableEcho
+  - Teleporter
   layers:
   - Default
   - TransparentFX

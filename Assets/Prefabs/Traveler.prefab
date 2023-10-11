@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 442883134764939648}
   - component: {fileID: 5137241251698843338}
   - component: {fileID: 1263476364277407303}
+  - component: {fileID: 2998813602459627858}
   m_Layer: 0
   m_Name: Traveler
   m_TagString: Untagged
@@ -75,7 +76,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2210026060036778508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 1.75
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2210026060036778508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a2a73d61f8dfe4e858eaf99ac75443, type: 3}
   m_Name: 
@@ -133,6 +134,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2998813602459627858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210026060036778508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e4ae08f3c3b2644a19809bfec61184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TravellerAnimator: {fileID: 1975992179354161726}
 --- !u!1001 &6887272038086328671
 PrefabInstance:
   m_ObjectHideFlags: 0

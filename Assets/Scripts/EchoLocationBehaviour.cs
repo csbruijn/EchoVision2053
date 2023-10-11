@@ -47,6 +47,14 @@ public class EchoLocationBehaviour : MonoBehaviour
         {
             Debug.LogError("Target Renderer is not assigned!");
         }
+
+        Renderer[] renderers = FindObjectsOfType<Renderer>();
+
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material = EchoRender;
+        }
+
     }
 
     private void Update()
