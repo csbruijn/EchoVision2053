@@ -50,11 +50,15 @@ public class EchoLocationBehaviour : MonoBehaviour
 
         Renderer[] renderers = FindObjectsOfType<Renderer>();
 
+        
         foreach (Renderer renderer in renderers)
         {
-            renderer.material = EchoRender;
-        }
+            if (renderer.gameObject.layer != 3)
+                renderer.material = EchoRender;
 
+            //renderer.material = EchoRender;
+        }
+        
     }
 
     private void Update()
