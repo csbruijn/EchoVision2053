@@ -4,18 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Anchor
-  - TextShower
-  - interactableEcho
-  - Teleporter
+  - Whiteboard
+  - EchoSurface
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Environment
+  - 
   - 
   - 
   - 
