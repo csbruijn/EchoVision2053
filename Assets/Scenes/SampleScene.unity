@@ -912,6 +912,7 @@ MonoBehaviour:
   _tip: {fileID: 1695823453}
   _penSize: 20
   _renderer: {fileID: 1935841261}
+  echoActive: 0
 --- !u!114 &1025566720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,11 +1669,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ac84fcd6a036346ae106968eeba5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayCount: 360
-  _startDistance: 60
+  rayCount: 60
+  _startDistance: 30
   _tip: {fileID: 1695823453}
-  _penSize: 20
+  _penSize: 40
   _renderer: {fileID: 1842042806}
+  echoActive: 0
 --- !u!1001 &1777064507
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Unity.Collections;
 using UnityEngine;
 
@@ -17,46 +18,101 @@ public class WhiteboardMarker : MonoBehaviour
     private Color[] _colors;
 
     private RaycastHit _touch;
+    private int Index = 0; 
 
 
+    public bool echoActive; 
     private float _distance;
 
     void Start()
     {
+        echoActive = true;
+
         _colors = Enumerable.Repeat(_renderer.material.color, _penSize * _penSize).ToArray();
         _distance = _startDistance;
     }
 
     void Update()
     {
-        Draw();
+        if (echoActive)
+        {
+            CastEcho();
+
+        }
+    }
+
+    private void CastEcho()
+    {
+        if (Index == rayCount)
+        {
+            Index = 0;
+            echoActive = false;
+            return;
+        } 
+        else if (Index < rayCount)
+        {
+            float angleVert = Index * 360f / rayCount;
+            Index++;
+
+            for (int i = 0; i < rayCount; i++)
+            {
+                float angleHor = i * 360f / rayCount;
+                Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
+
+                if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
+                {
+                    if (_touch.transform.CompareTag("EchoSurface"))
+                    {
+                        EchoSurface _whiteboard = _touch.transform.GetComponent<EchoSurface>();
+
+                        Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
+
+                        var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
+                        var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
+
+                        _whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
+                        _whiteboard.texture.Apply();
+                    }
+                }
+            }
+
+
+        }
     }
 
     private void Draw()
     {
-        for (int i = 0; i < rayCount; i++)
+        
+
+        for (int I = 0; I < rayCount; I++)
         {
-            float angle = i * 360f / rayCount;
+            float angleVert = I * 360f / rayCount;
 
-            Vector3 direction = Quaternion.Euler(0 , angle, 0) * transform.forward;
-
-            if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
+            for (int i = 0; i < rayCount; i++)
             {
-                if (_touch.transform.CompareTag("EchoSurface"))
+                float angleHor = i * 360f / rayCount;
+
+                Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
+
+                if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
                 {
+                    if (_touch.transform.CompareTag("EchoSurface"))
+                    {
 
-                    EchoSurface _whiteboard = _touch.transform.GetComponent<EchoSurface>();
+                        EchoSurface _whiteboard = _touch.transform.GetComponent<EchoSurface>();
 
 
-                    Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
+                        Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
 
-                    var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
-                    var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
+                        var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
+                        var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
 
-                    _whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
-                    _whiteboard.texture.Apply();
+                        _whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
+                        _whiteboard.texture.Apply();
+                    }
                 }
             }
+            echoActive = false; 
         }
     }
 }
