@@ -36,12 +36,13 @@ public class WhiteboardMarker : MonoBehaviour
     {
         if (echoActive)
         {
-            CastEcho();
+            CastEchoSlow();
+            //CastEchoFast()
 
         }
     }
 
-    private void CastEcho()
+    private void CastEchoSlow()
     {
         if (Index == rayCount)
         {
@@ -51,12 +52,15 @@ public class WhiteboardMarker : MonoBehaviour
         } 
         else if (Index < rayCount)
         {
+            
             float angleVert = Index * 360f / rayCount;
+
+
             Index++;
 
             for (int i = 0; i < rayCount; i++)
             {
-                float angleHor = i * 360f / rayCount;
+                float angleHor = ((i * 360f) ) / rayCount;
                 Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
 
                 if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
@@ -75,12 +79,10 @@ public class WhiteboardMarker : MonoBehaviour
                     }
                 }
             }
-
-
         }
     }
 
-    private void Draw()
+    private void CastEchoFast()
     {
         
 
