@@ -5,7 +5,7 @@ using System.Reflection;
 using Unity.Collections;
 using UnityEngine;
 
-public class WhiteboardMarker : MonoBehaviour
+public class EchoCaster : MonoBehaviour
 {
 
     public int rayCount = 360;
@@ -23,12 +23,17 @@ public class WhiteboardMarker : MonoBehaviour
 
     public bool echoActive; 
     private float _distance;
+    public Gradient gradient;  // Define a gradient for the color effect
+
+
 
     void Start()
     {
         echoActive = true;
 
         _colors = Enumerable.Repeat(_renderer.material.color, _penSize * _penSize).ToArray();
+
+         
         _distance = _startDistance;
     }
 
@@ -36,51 +41,54 @@ public class WhiteboardMarker : MonoBehaviour
     {
         if (echoActive)
         {
-            CastEchoSlow();
-            //CastEchoFast()
+            //CastEchoSlow();
+            CastEchoFast();
 
         }
     }
 
-    private void CastEchoSlow()
-    {
-        if (Index == rayCount)
-        {
-            Index = 0;
-            echoActive = false;
-            return;
-        } 
-        else if (Index < rayCount)
-        {
+    //private void CastEchoSlow()
+    //{
+    //    if (Index == rayCount)
+    //    {
+    //        Index = 0;
+    //        echoActive = false;
+    //        return;
+    //    } 
+    //    else if (Index < rayCount)
+    //    {
             
-            float angleVert = Index * 360f / rayCount;
+    //        float angleVert = Index * 360f / rayCount;
 
 
-            Index++;
+    //        Index++;
 
-            for (int i = 0; i < rayCount; i++)
-            {
-                float angleHor = ((i * 360f) ) / rayCount;
-                Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
+    //        for (int i = 0; i < rayCount; i++)
+    //        {
+    //            float angleHor = ((i * 360f) ) / rayCount;
+    //            Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
 
-                if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
-                {
-                    if (_touch.transform.CompareTag("EchoSurface"))
-                    {
-                        EchoSurface _whiteboard = _touch.transform.GetComponent<EchoSurface>();
+    //            if (Physics.Raycast(_tip.position, direction, out _touch, _distance))
+    //            {
+    //                if (_touch.transform.CompareTag("EchoSurface"))
+    //                {
+    //                    EchoSurface _whiteboard = _touch.transform.GetComponent<EchoSurface>();
 
-                        Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
+    //                    Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
 
-                        var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
-                        var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
+    //                    var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
+    //                    var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
 
-                        _whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
-                        _whiteboard.texture.Apply();
-                    }
-                }
-            }
-        }
-    }
+    //                    _whiteboard.QueueEcho(x, y, _penSize, _colors);
+
+
+    //                    //_whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
+    //                    //_whiteboard.texture.Apply();
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     private void CastEchoFast()
     {
@@ -109,8 +117,7 @@ public class WhiteboardMarker : MonoBehaviour
                         var x = (int)(_touchPos.x * _whiteboard.textureSize.x - (_penSize / 2));
                         var y = (int)(_touchPos.y * _whiteboard.textureSize.y - (_penSize / 2));
 
-                        _whiteboard.texture.SetPixels(x, y, _penSize, _penSize, _colors);
-                        _whiteboard.texture.Apply();
+                        _whiteboard.QueueEcho(x, y, _penSize, _colors);
                     }
                 }
             }
