@@ -25,6 +25,7 @@ public class EchoCaster : MonoBehaviour
     private float _distance;
     public Gradient gradient;  // Define a gradient for the color effect
 
+    [Range(0.0f, 1.0f)] public float fadeSpeed;
 
 
     void Start()

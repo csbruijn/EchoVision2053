@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class EchoSurface : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class EchoSurface : MonoBehaviour
 
     private List <EchoData> PendingEchoData = new List <EchoData>();
     private bool needsTextureUpdate;
+
+
+    private float fadeSpeed;
+    private bool fadingToBlack = true;
+
 
 
     private struct EchoData
@@ -24,6 +30,9 @@ public class EchoSurface : MonoBehaviour
         var r = GetComponent<Renderer>();
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
         r.material.mainTexture = texture;
+        fadeSpeed = GameObject.Find("EchoManager").GetComponent<EchoCaster>().fadeSpeed;
+        
+
     }
 
     void Update()
@@ -31,7 +40,18 @@ public class EchoSurface : MonoBehaviour
         if (needsTextureUpdate)
         {
             ApplyEchoCast();
+            fadingToBlack = true;
+
         }
+
+        if (needsTextureUpdate ==false && fadingToBlack == true)
+        {
+            FadeBlack(fadeSpeed); 
+            
+            //StartCoroutine(FadeToBlack(fadeSpeed));
+        }
+
+
     }
 
 
@@ -52,6 +72,55 @@ public class EchoSurface : MonoBehaviour
         PendingEchoData.Clear();
         needsTextureUpdate=false;
     }
+
+    private void FadeBlack(float _fadeSpeed)
+    {
+
+        Color[] pixels = texture.GetPixels();
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] = Color.Lerp(pixels[i], Color.black, _fadeSpeed * Time.deltaTime);
+        }
+
+        texture.SetPixels(pixels);
+        texture.Apply();
+        Debug.Log("Fade applied");
+
+        // Check if the fading is complete.
+        if (pixels[0] == Color.black)
+        {
+            fadingToBlack = false;
+        }
+    }
+
+    IEnumerator FadeToBlack(float _fadeSpeed)
+    {
+
+        Color[] pixels = texture.GetPixels();
+        float step = 1 - _fadeSpeed;
+
+
+        for (int i =0; i < pixels.Length; i++)
+        {
+            pixels[i] = new Color(
+                pixels[i].r * (step),
+                pixels[i].g * ( step),
+                pixels[i].b * (step),
+                pixels[i].a
+            );
+        }
+
+        texture.SetPixels(pixels);
+        texture.Apply();
+
+        if (pixels.Length > 0 && pixels[0].r > _fadeSpeed)
+        { yield  return null; }
+
+        fadingToBlack = false;
+    }
+
+
 }
 
 
