@@ -42,7 +42,7 @@ Shader"Custom/EchoSurface"
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                col.rgb *= _FadingFactor;
+                col.rgb = lerp(col.rgb, float3(0, 0, 0), _FadingFactor);
                 return col;
             }
             ENDCG

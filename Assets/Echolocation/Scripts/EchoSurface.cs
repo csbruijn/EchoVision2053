@@ -31,7 +31,7 @@ public class EchoSurface : MonoBehaviour
     {
         var r = GetComponent<Renderer>();
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
-
+        material = r.material;
         r.material.mainTexture = texture;
         fadeSpeed = GameObject.Find("EchoManager").GetComponent<EchoCaster>().fadeSpeed;
 
@@ -53,19 +53,14 @@ public class EchoSurface : MonoBehaviour
         {
             //FadeBlack(fadeSpeed); 
 
-            //StartCoroutine(FadeToBlack(fadeSpeed));
-
-
-
+            StartCoroutine(FadeToBlack(fadeSpeed));
         }
-
-
     }
 
 
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
-        fadingFactor = 1.0f;
+        //fadingFactor = 1.0f;
         //material.SetFloat("_FadingFactor", fadingFactor);
 
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
