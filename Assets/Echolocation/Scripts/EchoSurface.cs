@@ -6,6 +6,8 @@ using UnityEngine.UIElements.Experimental;
 public class EchoSurface : MonoBehaviour
 {
     public Texture2D texture;
+    private Material material;
+
     public Vector2 textureSize = new Vector2(2048, 2048);
 
     private List <EchoData> PendingEchoData = new List <EchoData>();
@@ -15,7 +17,7 @@ public class EchoSurface : MonoBehaviour
     private float fadeSpeed;
     private bool fadingToBlack = true;
 
-
+    private float fadingFactor = 1.0f;
 
     private struct EchoData
     {
@@ -29,16 +31,19 @@ public class EchoSurface : MonoBehaviour
     {
         var r = GetComponent<Renderer>();
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+
         r.material.mainTexture = texture;
         fadeSpeed = GameObject.Find("EchoManager").GetComponent<EchoCaster>().fadeSpeed;
-        
 
+        BlackOut(); 
     }
 
     void Update()
     {
         if (needsTextureUpdate)
         {
+            //texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+
             ApplyEchoCast();
             fadingToBlack = true;
 
@@ -46,9 +51,12 @@ public class EchoSurface : MonoBehaviour
 
         if (needsTextureUpdate ==false && fadingToBlack == true)
         {
-            FadeBlack(fadeSpeed); 
-            
+            //FadeBlack(fadeSpeed); 
+
             //StartCoroutine(FadeToBlack(fadeSpeed));
+
+
+
         }
 
 
@@ -57,6 +65,9 @@ public class EchoSurface : MonoBehaviour
 
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
+        fadingFactor = 1.0f;
+        //material.SetFloat("_FadingFactor", fadingFactor);
+
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
         needsTextureUpdate = true;
@@ -73,22 +84,28 @@ public class EchoSurface : MonoBehaviour
         needsTextureUpdate=false;
     }
 
-    private void FadeBlack(float _fadeSpeed)
+    private void BlackOut()
     {
-
-        Color[] pixels = texture.GetPixels();
-
-        for (int i = 0; i < pixels.Length; i++)
+        Color[] pixelsStart = texture.GetPixels();
+        for (int i = 0; i < pixelsStart.Length; i++)
         {
-            pixels[i] = Color.Lerp(pixels[i], Color.black, _fadeSpeed * Time.deltaTime);
+            pixelsStart[i] = Color.black;
         }
 
-        texture.SetPixels(pixels);
+        texture.SetPixels(pixelsStart);
         texture.Apply();
-        Debug.Log("Fade applied");
+    }
+
+
+    private void FadeBlack(float _fadeSpeed)
+    {
+        
+        fadingFactor -= _fadeSpeed * Time.deltaTime;
+
+        material.SetFloat("_FadingFactor", fadingFactor);
 
         // Check if the fading is complete.
-        if (pixels[0] == Color.black)
+        if (fadingFactor == 0)
         {
             fadingToBlack = false;
         }
@@ -96,31 +113,27 @@ public class EchoSurface : MonoBehaviour
 
     IEnumerator FadeToBlack(float _fadeSpeed)
     {
-
         Color[] pixels = texture.GetPixels();
-        float step = 1 - _fadeSpeed;
+        float fadingProgress = 1.0f; // Start with full fading progress
 
-
-        for (int i =0; i < pixels.Length; i++)
+        while (fadingProgress > 0)
         {
-            pixels[i] = new Color(
-                pixels[i].r * (step),
-                pixels[i].g * ( step),
-                pixels[i].b * (step),
-                pixels[i].a
-            );
+            fadingProgress -= _fadeSpeed * Time.deltaTime;
+
+            fadingProgress = Mathf.Clamp01(fadingProgress); // Ensure it stays within [0, 1]
+
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                pixels[i] = Color.Lerp(Color.black, pixels[i], fadingProgress);
+            }
+
+            texture.SetPixels(pixels);
+            texture.Apply();
+
+            yield return null;
         }
-
-        texture.SetPixels(pixels);
-        texture.Apply();
-
-        if (pixels.Length > 0 && pixels[0].r > _fadeSpeed)
-        { yield  return null; }
-
         fadingToBlack = false;
     }
-
-
 }
 
 
