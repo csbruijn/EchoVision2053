@@ -17,8 +17,6 @@ public class EchoCaster : MonoBehaviour
     [SerializeField] private int _penSize = 5;
     [SerializeField] private Renderer _renderer;
     
-    private Color[] _colors;
-
     private RaycastHit _touch;
     private int Index = 0; 
 
@@ -37,7 +35,6 @@ public class EchoCaster : MonoBehaviour
     {
         echoActive = true;
 
-        _colors = Enumerable.Repeat(_renderer.material.color, _penSize * _penSize).ToArray();
 
          
         _distance = maxDistance;

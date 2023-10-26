@@ -75,7 +75,8 @@ public class EchoSurface : MonoBehaviour
 
     private void ApplyEchoCast()
     {
-         foreach (EchoData data in PendingEchoData) 
+        BlackOut();
+        foreach (EchoData data in PendingEchoData) 
         {
             texture.SetPixels(data.x, data.y, data.penSize,data.penSize, data.colors);
         }
