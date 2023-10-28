@@ -104,7 +104,7 @@ public class EchoSurface : MonoBehaviour
 
         material.SetFloat("_FadingFactor", fadingFactor);
 
-        if (fadingFactor == 0)
+        if (fadingFactor == 1)
         {
             fadingToBlack = false;
         }

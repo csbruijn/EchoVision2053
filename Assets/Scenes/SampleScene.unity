@@ -2073,7 +2073,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fadeSpeed: 0.002
-  timeBetweenEcho: 1000
+  timeBetweenEcho: 500
 --- !u!1001 &1842672852
 PrefabInstance:
   m_ObjectHideFlags: 0
