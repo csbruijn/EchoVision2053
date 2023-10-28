@@ -38,6 +38,11 @@ public class EchoCaster : MonoBehaviour
 
          
         _distance = maxDistance;
+
+
+        //InvokeRepeating("CastEchoFast", 2.0f, timeBetweenEcho);
+
+
     }
 
     void Update()
@@ -49,11 +54,10 @@ public class EchoCaster : MonoBehaviour
 
         }
 
-        timer--; 
+        timer--;
         if (timer < 0 && !echoActive)
         {
-            echoActive = true; 
-
+            echoActive = true;
 
         }
 

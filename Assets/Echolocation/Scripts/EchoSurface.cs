@@ -51,23 +51,25 @@ public class EchoSurface : MonoBehaviour
 
         if (needsTextureUpdate ==false && fadingToBlack == true)
         {
-            //FadeBlack(fadeSpeed); 
+            FadeBlack(fadeSpeed); 
 
-            StartCoroutine(FadeToBlack(fadeSpeed));
+            //StartCoroutine(FadeToBlack(fadeSpeed));
         }
     }
 
-
+    // queues a new echo cast in the shader. 
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
-        //fadingFactor = 1.0f;
-        //material.SetFloat("_FadingFactor", fadingFactor);
+        fadingFactor = 0f;
+        material.SetFloat("_FadingFactor", fadingFactor);
 
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
         needsTextureUpdate = true;
     }
 
+
+    // this function 
     private void ApplyEchoCast()
     {
         BlackOut();
@@ -80,6 +82,8 @@ public class EchoSurface : MonoBehaviour
         needsTextureUpdate=false;
     }
 
+
+    // This function changes all pixels the texture to turn black 
     private void BlackOut()
     {
         Color[] pixelsStart = texture.GetPixels();
@@ -96,11 +100,10 @@ public class EchoSurface : MonoBehaviour
     private void FadeBlack(float _fadeSpeed)
     {
         
-        fadingFactor -= _fadeSpeed * Time.deltaTime;
+        fadingFactor += _fadeSpeed;
 
         material.SetFloat("_FadingFactor", fadingFactor);
 
-        // Check if the fading is complete.
         if (fadingFactor == 0)
         {
             fadingToBlack = false;
@@ -110,13 +113,13 @@ public class EchoSurface : MonoBehaviour
     IEnumerator FadeToBlack(float _fadeSpeed)
     {
         Color[] pixels = texture.GetPixels();
-        float fadingProgress = 1.0f; // Start with full fading progress
+        float fadingProgress = 1.0f; 
 
         while (fadingProgress > 0)
         {
             fadingProgress -= _fadeSpeed * Time.deltaTime;
 
-            fadingProgress = Mathf.Clamp01(fadingProgress); // Ensure it stays within [0, 1]
+            fadingProgress = Mathf.Clamp01(fadingProgress); 
 
             for (int i = 0; i < pixels.Length; i++)
             {

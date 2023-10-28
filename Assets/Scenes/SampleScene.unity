@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
-  textureSize: {x: 1024, y: 1024}
+  textureSize: {x: 512, y: 512}
 --- !u!64 &1177286192
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2072,8 +2072,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fadeSpeed: 0.158
-  timeBetweenEcho: 10000
+  fadeSpeed: 0.002
+  timeBetweenEcho: 1000
 --- !u!1001 &1842672852
 PrefabInstance:
   m_ObjectHideFlags: 0
