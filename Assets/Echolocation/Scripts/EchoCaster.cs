@@ -1,9 +1,5 @@
 
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Unity.Collections;
 using UnityEngine;
 
 public class EchoCaster : MonoBehaviour
@@ -14,9 +10,7 @@ public class EchoCaster : MonoBehaviour
     public float maxDistance = 40f; 
 
     [SerializeField] private Transform _origin;
-    [SerializeField] private int _penSize = 5;
-    [SerializeField] private Renderer _renderer;
-    
+    [SerializeField] private int _penSize = 5;    
     private RaycastHit _touch;
     private int Index = 0; 
 

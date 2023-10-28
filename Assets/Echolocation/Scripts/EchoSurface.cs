@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 public class EchoSurface : MonoBehaviour
 {
@@ -13,10 +11,8 @@ public class EchoSurface : MonoBehaviour
     private List <EchoData> PendingEchoData = new List <EchoData>();
     private bool needsTextureUpdate;
 
-
-    private float fadeSpeed;
     private bool fadingToBlack = true;
-
+    private float fadeSpeed;
     private float fadingFactor = 1.0f;
 
     private float echoRadius = 0f;
@@ -54,16 +50,13 @@ public class EchoSurface : MonoBehaviour
     {
         if (needsTextureUpdate)
         {
-
             ApplyEchoCast();
             fadingToBlack = true;
-
         }
 
         if (!needsTextureUpdate && fadingToBlack )
         {
             FadeBlack(fadeSpeed); 
-
         }
 
         if (echoRadius < maxRadius)

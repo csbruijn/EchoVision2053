@@ -2041,7 +2041,6 @@ MonoBehaviour:
   maxDistance: 10
   _origin: {fileID: 1695823453}
   _penSize: 2
-  _renderer: {fileID: 0}
   echoActive: 0
   gradient:
     serializedVersion: 2
@@ -2459,7 +2458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   texture: {fileID: 0}
-  textureSize: {x: 2048, y: 2048}
+  textureSize: {x: 4096, y: 4096}
 --- !u!1 &1958567727 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 700f924764ab01e48b7b4cd6c9816e47, type: 3}
