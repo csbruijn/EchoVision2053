@@ -19,6 +19,12 @@ public class EchoSurface : MonoBehaviour
 
     private float fadingFactor = 1.0f;
 
+    private float echoRadius = 0f;
+    private float maxRadius;
+    private float radiusRate; 
+
+
+
     private struct EchoData
     {
         public int x;
@@ -30,10 +36,16 @@ public class EchoSurface : MonoBehaviour
     void Start()
     {
         var r = GetComponent<Renderer>();
+
+        
+
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+
         material = r.material;
         r.material.mainTexture = texture;
         fadeSpeed = GameObject.Find("EchoManager").GetComponent<EchoCaster>().fadeSpeed;
+        maxRadius = GameObject.Find("EchoManager").GetComponent<EchoCaster>().maxDistance;
+        radiusRate = GameObject.Find("EchoManager").GetComponent<EchoCaster>().radiusRate;
 
         BlackOut(); 
     }
@@ -42,26 +54,33 @@ public class EchoSurface : MonoBehaviour
     {
         if (needsTextureUpdate)
         {
-            //texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
 
             ApplyEchoCast();
             fadingToBlack = true;
 
         }
 
-        if (needsTextureUpdate ==false && fadingToBlack == true)
+        if (!needsTextureUpdate && fadingToBlack )
         {
             FadeBlack(fadeSpeed); 
 
-            //StartCoroutine(FadeToBlack(fadeSpeed));
         }
+
+        if (echoRadius < maxRadius)
+        {
+            echoRadius = echoRadius + radiusRate;
+            material.SetFloat("_Radius", echoRadius);
+
+        }
+
+
     }
 
     // queues a new echo cast in the shader. 
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
-        fadingFactor = 0f;
-        material.SetFloat("_FadingFactor", fadingFactor);
+        echoRadius = 0f;
+        material.SetFloat("_Radius", echoRadius);
 
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
@@ -75,8 +94,11 @@ public class EchoSurface : MonoBehaviour
         BlackOut();
         foreach (EchoData data in PendingEchoData) 
         {
-            texture.SetPixels(data.x, data.y, data.penSize,data.penSize, data.colors);
-        }
+            int clampedX = Mathf.Clamp(data.x, 0, texture.width - data.penSize);
+            int clampedY = Mathf.Clamp(data.y, 0, texture.height - data.penSize);
+            int clampedWidth = Mathf.Clamp(data.penSize, 0, texture.width - clampedX);
+            int clampedHeight = Mathf.Clamp(data.penSize, 0, texture.height - clampedY);
+            texture.SetPixels(clampedX, clampedY, clampedWidth, clampedHeight, data.colors);        }
         texture.Apply();
         PendingEchoData.Clear();
         needsTextureUpdate=false;
@@ -110,29 +132,6 @@ public class EchoSurface : MonoBehaviour
         }
     }
 
-    //IEnumerator FadeToBlack(float _fadeSpeed)
-    //{
-    //    Color[] pixels = texture.GetPixels();
-    //    float fadingProgress = 1.0f; 
-
-    //    while (fadingProgress > 0)
-    //    {
-    //        fadingProgress -= _fadeSpeed * Time.deltaTime;
-
-    //        fadingProgress = Mathf.Clamp01(fadingProgress); 
-
-    //        for (int i = 0; i < pixels.Length; i++)
-    //        {
-    //            pixels[i] = Color.Lerp(Color.black, pixels[i], fadingProgress);
-    //        }
-
-    //        texture.SetPixels(pixels);
-    //        texture.Apply();
-
-    //        yield return null;
-    //    }
-    //    fadingToBlack = false;
-    //}
 }
 
 

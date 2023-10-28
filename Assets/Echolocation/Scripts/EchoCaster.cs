@@ -29,7 +29,9 @@ public class EchoCaster : MonoBehaviour
 
 
     private float timer;
-    public float timeBetweenEcho; 
+    public float timeBetweenEcho;
+
+    public float radiusRate = .02f;
 
     void Start()
     {
