@@ -110,29 +110,29 @@ public class EchoSurface : MonoBehaviour
         }
     }
 
-    IEnumerator FadeToBlack(float _fadeSpeed)
-    {
-        Color[] pixels = texture.GetPixels();
-        float fadingProgress = 1.0f; 
+    //IEnumerator FadeToBlack(float _fadeSpeed)
+    //{
+    //    Color[] pixels = texture.GetPixels();
+    //    float fadingProgress = 1.0f; 
 
-        while (fadingProgress > 0)
-        {
-            fadingProgress -= _fadeSpeed * Time.deltaTime;
+    //    while (fadingProgress > 0)
+    //    {
+    //        fadingProgress -= _fadeSpeed * Time.deltaTime;
 
-            fadingProgress = Mathf.Clamp01(fadingProgress); 
+    //        fadingProgress = Mathf.Clamp01(fadingProgress); 
 
-            for (int i = 0; i < pixels.Length; i++)
-            {
-                pixels[i] = Color.Lerp(Color.black, pixels[i], fadingProgress);
-            }
+    //        for (int i = 0; i < pixels.Length; i++)
+    //        {
+    //            pixels[i] = Color.Lerp(Color.black, pixels[i], fadingProgress);
+    //        }
 
-            texture.SetPixels(pixels);
-            texture.Apply();
+    //        texture.SetPixels(pixels);
+    //        texture.Apply();
 
-            yield return null;
-        }
-        fadingToBlack = false;
-    }
+    //        yield return null;
+    //    }
+    //    fadingToBlack = false;
+    //}
 }
 
 
