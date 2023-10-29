@@ -9,7 +9,7 @@ public class EchoCaster : MonoBehaviour
     public float _startDistance = 40f;
     public float maxDistance = 40f; 
 
-    [SerializeField] private Transform _origin;
+    public Transform _origin;
     [SerializeField] private int _penSize = 5;    
     private RaycastHit _touch;
     private int Index = 0; 

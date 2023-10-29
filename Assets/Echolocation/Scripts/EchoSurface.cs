@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EchoSurface : MonoBehaviour
 {
     public Texture2D texture;
     private Material material;
+    private GameObject echoManager;
 
     public Vector2 textureSize = new Vector2(2048, 2048);
 
@@ -17,7 +19,9 @@ public class EchoSurface : MonoBehaviour
 
     private float echoRadius = 0f;
     private float maxRadius;
-    private float radiusRate; 
+    private float radiusRate;
+
+    //private Vector3 echoOrigin;
 
 
 
@@ -33,15 +37,16 @@ public class EchoSurface : MonoBehaviour
     {
         var r = GetComponent<Renderer>();
 
-        
+        echoManager = GameObject.Find("EchoManager");
 
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
 
         material = r.material;
         r.material.mainTexture = texture;
-        fadeSpeed = GameObject.Find("EchoManager").GetComponent<EchoCaster>().fadeSpeed;
-        maxRadius = GameObject.Find("EchoManager").GetComponent<EchoCaster>().maxDistance;
-        radiusRate = GameObject.Find("EchoManager").GetComponent<EchoCaster>().radiusRate;
+        fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
+        maxRadius = echoManager.GetComponent<EchoCaster>().maxDistance;
+        radiusRate = echoManager.GetComponent<EchoCaster>().radiusRate;
+//        echoOrigin = echoManager.GetComponent<EchoCaster>()._origin.position;
 
         BlackOut(); 
     }
@@ -72,6 +77,9 @@ public class EchoSurface : MonoBehaviour
     // queues a new echo cast in the shader. 
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
+        Vector3 newCenterX = echoManager.GetComponent<EchoCaster>()._origin.position;
+        material.SetVector("_Center", newCenterX);
+
         echoRadius = 0f;
         material.SetFloat("_Radius", echoRadius);
 
