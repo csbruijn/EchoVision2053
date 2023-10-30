@@ -28,7 +28,7 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _FullShade: 0.2
-    - _Radius: 7.0999956
+    - _Radius: 3.0999992
     - _Radius2: 0
     - _SemiShade: 4.22
     m_Colors:

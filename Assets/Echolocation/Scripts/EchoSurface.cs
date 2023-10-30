@@ -12,6 +12,7 @@ public class EchoSurface : MonoBehaviour
 
     private List <EchoData> PendingEchoData = new List <EchoData>();
     private bool needsTextureUpdate;
+    private bool blackOutComplete; 
 
     private bool fadingToBlack = true;
     private float fadeSpeed;
@@ -20,9 +21,6 @@ public class EchoSurface : MonoBehaviour
     private float echoRadius = 0f;
     private float maxRadius;
     private float radiusRate;
-
-    //private Vector3 echoOrigin;
-
 
 
     private struct EchoData
@@ -46,7 +44,6 @@ public class EchoSurface : MonoBehaviour
         fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
         maxRadius = echoManager.GetComponent<EchoCaster>().maxDistance;
         radiusRate = echoManager.GetComponent<EchoCaster>().radiusRate;
-//        echoOrigin = echoManager.GetComponent<EchoCaster>()._origin.position;
 
         BlackOut(); 
     }
@@ -55,14 +52,17 @@ public class EchoSurface : MonoBehaviour
     {
         if (needsTextureUpdate)
         {
-            ApplyEchoCast();
-            fadingToBlack = true;
+            BlackOut();
+            blackOutComplete = true;
         }
 
-        if (!needsTextureUpdate && fadingToBlack )
+        if (blackOutComplete)
         {
-            FadeBlack(fadeSpeed); 
+            ApplyEchoCast();
+            blackOutComplete = false;
         }
+
+        
 
         if (echoRadius < maxRadius)
         {
@@ -70,18 +70,23 @@ public class EchoSurface : MonoBehaviour
             material.SetFloat("_Radius", echoRadius);
 
         }
-
-
+        else 
+        {
+            //FadeBlack(fadeSpeed);
+        }
     }
 
-    // queues a new echo cast in the shader. 
+    /// <summary>
+    /// queues a new echo cast in the shader. 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="penSize"></param>
+    /// <param name="colors"></param>
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
-        Vector3 newCenterX = echoManager.GetComponent<EchoCaster>()._origin.position;
-        material.SetVector("_Center", newCenterX);
-
-        echoRadius = 0f;
-        material.SetFloat("_Radius", echoRadius);
+        
+        
 
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
@@ -89,10 +94,23 @@ public class EchoSurface : MonoBehaviour
     }
 
 
-    // this function 
+    /// <summary>
+    /// this function reviews the Pending Echo Data, clamps it to the boundaries and applies it to the surface texture. 
+    /// </summary>
     private void ApplyEchoCast()
     {
-        BlackOut();
+
+        Vector3 newCenterX = echoManager.GetComponent<EchoCaster>()._origin.position;
+        material.SetVector("_Center", newCenterX);
+
+        //if (echoRadius != 0) 
+        {
+            echoRadius = 0f;
+            material.SetFloat("_Radius", echoRadius);
+        }
+
+
+        
         foreach (EchoData data in PendingEchoData) 
         {
             int clampedX = Mathf.Clamp(data.x, 0, texture.width - data.penSize);
@@ -106,7 +124,9 @@ public class EchoSurface : MonoBehaviour
     }
 
 
-    // This function changes all pixels the texture to turn black 
+    /// <summary>
+    /// This function changes all pixels the texture to turn black 
+    /// </summary>
     private void BlackOut()
     {
         Color[] pixelsStart = texture.GetPixels();
@@ -119,7 +139,10 @@ public class EchoSurface : MonoBehaviour
         texture.Apply();
     }
 
-
+    /// <summary>
+    /// This function should've provided a fade to black. 
+    /// </summary>
+    /// <param name="_fadeSpeed"></param>
     private void FadeBlack(float _fadeSpeed)
     {
         

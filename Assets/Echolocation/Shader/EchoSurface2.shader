@@ -70,17 +70,17 @@ Shader "Unlit/EchoSurface"
                 float dist = distance(_Center, i.worldPos);
 
     
-                if (dist <= _Radius)
+                if (dist <= _Radius - _ShadeSize)
                 {
                 _distFade = 0;
                 }
-                else if (dist >= _Radius + _ShadeSize)
+                else if (dist >= _Radius )
                 {
                 _distFade = 1;
                 }
-                else if (_Radius > 0 )
+                else if (_Radius  > 0)
                 {
-                _distFade = (dist - _Radius) / _ShadeSize;
+                    _distFade = (dist - (_Radius - _ShadeSize )) / _ShadeSize;
                 }
     
         fixed4 col = tex2D(_MainTex, i.uv);
