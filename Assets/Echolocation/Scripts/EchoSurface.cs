@@ -52,7 +52,7 @@ public class EchoSurface : MonoBehaviour
     {
         if (needsTextureUpdate)
         {
-            //BlackOut();
+            BlackOut();
             blackOutComplete = true;
         }
 
@@ -127,7 +127,7 @@ public class EchoSurface : MonoBehaviour
     /// <summary>
     /// This function changes all pixels the texture to turn black 
     /// </summary>
-    public void BlackOut()
+    private void BlackOut()
     {
         Color[] pixelsStart = texture.GetPixels();
         for (int i = 0; i < pixelsStart.Length; i++)

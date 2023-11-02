@@ -1,11 +1,9 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class EchoCaster : MonoBehaviour
 {
-    public List<GameObject> echoSurfaceObjects = new List<GameObject>();
 
     public int rayCount = 360;
     public float _startDistance = 40f;
@@ -16,50 +14,70 @@ public class EchoCaster : MonoBehaviour
     private RaycastHit _touch;
     private int Index = 0; 
 
-        public bool echoActive; 
+
+    public bool echoActive; 
     private float _distance;
     public Gradient gradient;  // Define a gradient for the color effect
 
     [Range(0.0f, 1.0f)] public float fadeSpeed;
+
 
     private float timer;
     public float timeBetweenEcho;
 
     public float radiusRate = .02f;
 
-    [SerializeField]
-    private Material echoMaterial;
-
     void Start()
     {
         echoActive = true;
-                 
+
+
+         
         _distance = maxDistance;
 
-        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("echoSurface");
-        echoSurfaceObjects.AddRange(taggedObjects);
-        foreach (GameObject obj in echoSurfaceObjects)
-        {
-            obj.GetComponent<Renderer>().material = echoMaterial;
-        }
+
+        //InvokeRepeating("CastEchoFast", 2.0f, timeBetweenEcho);
+
+
     }
 
     void Update()
     {
         if (echoActive)
         {
-            foreach (GameObject obj in echoSurfaceObjects)
-            {
-               obj.GetComponent<EchoSurface>().BlackOut();
-            }
             //CastEchoSlow();
             CastEchoFast();
+
         }
 
         timer--;
         if (timer < 0 && !echoActive)
         {
             echoActive = true;
+
+        }
+
+
+    }
+
+    private void CastOutwards()
+    {
+
+        // REUSE THIS TO HAVE THE ECHO CAST OUTWARDS FRAME BY FRAME
+
+
+        if (Index == rayCount)
+        {
+            Index = 0;
+            echoActive = false;
+            return;
+        }
+        else if (Index < rayCount)
+        {
+
+            Index++;
+
+
         }
     }
 
@@ -71,6 +89,8 @@ public class EchoCaster : MonoBehaviour
         {
             raycastColors[i] = Color.clear;
         }
+
+
 
         for (int I = 0; I < rayCount; I++)
         {
@@ -86,16 +106,22 @@ public class EchoCaster : MonoBehaviour
                 {
                     if (_touch.transform.CompareTag("EchoSurface"))
                     {
+
                         EchoSurface _echoSurface = _touch.transform.GetComponent<EchoSurface>();
+
 
                         Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);
 
                         var x = (int)(_touchPos.x * _echoSurface.textureSize.x - (_penSize / 2));
                         var y = (int)(_touchPos.y * _echoSurface.textureSize.y - (_penSize / 2));
 
+
                         float distance = Vector3.Distance(_origin.position, _touch.point);
                         float t = Mathf.Clamp01(distance / maxDistance);
                         Color raycastColor = gradient.Evaluate(t);
+
+                        //int index = x + y * _penSize;
+                        //raycastColors[index] = raycastColor;
 
                         raycastColors = Enumerable.Repeat(raycastColor, _penSize * _penSize).ToArray();
                         _echoSurface.QueueEcho(x, y, _penSize, raycastColors);
