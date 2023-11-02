@@ -104,10 +104,13 @@ public class EchoCaster : MonoBehaviour
 
                 if (Physics.Raycast(_origin.position, direction, out _touch, _distance))
                 {
-                    if (_touch.transform.CompareTag("EchoSurface"))
+
+                    EchoSurface _echoSurface = _touch.transform.GetComponent<EchoSurface>();
+
+                    //if (_touch.transform.CompareTag("EchoSurface"))
+                    if (_echoSurface != null)
                     {
 
-                        EchoSurface _echoSurface = _touch.transform.GetComponent<EchoSurface>();
 
 
                         Vector2 _touchPos = new Vector2(_touch.textureCoord.x, _touch.textureCoord.y);

@@ -7,6 +7,8 @@ TagManager:
   - Anchor
   - TextShower
   - Train
+  - echoSurface
+  - EchoSurface
   layers:
   - Default
   - TransparentFX
