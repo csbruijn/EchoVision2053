@@ -9,6 +9,7 @@ public class PlayerVoiceInteractionScript : MonoBehaviour
     public GameObject talkingSprite;
     private VoiceCoroutineScript voiceCoroutineScript;
     private bool isCoroutineRunning = false;
+    [SerializeField] private AudioSource audioSource; 
 
     void Start()
     {
