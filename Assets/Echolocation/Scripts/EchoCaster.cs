@@ -12,8 +12,8 @@ public class EchoCaster : MonoBehaviour
     public Transform _origin;
     [SerializeField] private int _penSize = 5;    
     private RaycastHit _touch;
-    private int Index = 0; 
-
+    private int Index = 0;
+    private int layerMask;
 
     public bool echoActive; 
     private float _distance;
@@ -30,9 +30,9 @@ public class EchoCaster : MonoBehaviour
     void Start()
     {
         echoActive = true;
+        layerMask = 1 << LayerMask.NameToLayer("EchoSurface");
 
 
-         
         _distance = maxDistance;
 
 
@@ -102,7 +102,7 @@ public class EchoCaster : MonoBehaviour
 
                 Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
 
-                if (Physics.Raycast(_origin.position, direction, out _touch, _distance))
+                if (Physics.Raycast(_origin.position, direction, out _touch, _distance, layerMask))
                 {
 
                     EchoSurface _echoSurface = _touch.transform.GetComponent<EchoSurface>();
