@@ -6,16 +6,15 @@ TagManager:
   tags:
   - Anchor
   - TextShower
-  - interactableEcho
-  - Teleporter
+  - Train
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Environment
+  - 
   - 
   - 
   - 
