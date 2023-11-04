@@ -2494,15 +2494,19 @@ PrefabInstance:
       objectReference: {fileID: 827452296}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: _penSize
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: rayCount
-      value: 360
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: fadeSpeed
       value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
+      propertyPath: echoActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: radiusRate
@@ -2510,7 +2514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: maxDistance
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: echoMaterial
@@ -2534,11 +2538,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime4
-      value: 50886
+      value: 55319
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime5
-      value: 65535
+      value: 63993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
+      propertyPath: gradient.ctime6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.key0.b
@@ -2586,11 +2594,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.key4.b
-      value: 0.3885184
+      value: 0.36295798
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.key4.g
-      value: 0.027356971
+      value: 0.02555717
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
+      propertyPath: gradient.key5.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
+      propertyPath: gradient.key5.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
+      propertyPath: gradient.key5.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: timeBetweenEcho

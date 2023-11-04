@@ -8,7 +8,7 @@ public class EchoCaster : MonoBehaviour
     public int rayCount = 360;
     private int iterations; 
 
-    public float _startDistance = 40f;
+    //public float _startDistance = 40f;
     public float maxDistance = 40f; 
 
     public Transform _origin;
@@ -17,7 +17,7 @@ public class EchoCaster : MonoBehaviour
     private int Index = 0;
     private int layerMask;
 
-    public bool echoActive; 
+    private bool echoActive; 
     private float _distance;
     public Gradient gradient;  // Define a gradient for the color effect
 
@@ -107,11 +107,11 @@ public class EchoCaster : MonoBehaviour
                 iterations = rayCount / 2 - I;
             }
 
-            float offset = Random.Range(-10f, 10f);
+            //float offset = Random.Range(-10f, 10f);
 
             for (int i = 0; i < iterations; i++)
             {
-                float angleHor = offset + (i * 360f / iterations) ;
+                float angleHor = (i * 360f / iterations) ;
 
                 Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.up;
 

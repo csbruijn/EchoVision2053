@@ -75,7 +75,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Radius: 21.66
-    - _ShadeSize: 2.52
+    - _ShadeSize: 6.04
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
