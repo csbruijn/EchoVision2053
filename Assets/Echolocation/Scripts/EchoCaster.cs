@@ -96,7 +96,7 @@ public class EchoCaster : MonoBehaviour
 
         for (int I = 0; I < rayCount/2; I++)
         {
-            float angleVert = (I * 360f / rayCount)  ;
+            float angleVert =  (I * 360f / rayCount)  ;
 
             if (I <= rayCount / 4)
             {
@@ -107,11 +107,11 @@ public class EchoCaster : MonoBehaviour
                 iterations = rayCount / 2 - I;
             }
 
-
+            float offset = Random.Range(-10f, 10f);
 
             for (int i = 0; i < iterations; i++)
             {
-                float angleHor = (i * 360f / iterations) ;
+                float angleHor = offset + (i * 360f / iterations) ;
 
                 Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.up;
 
