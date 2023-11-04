@@ -867,7 +867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668758913251958, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 44.7
       objectReference: {fileID: 0}
     - target: {fileID: 1984668758913251958, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -907,7 +907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759388320319, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759388320319, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -955,7 +955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759906836222, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759906836222, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -975,7 +975,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759991436502, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1984668759991436502, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1027,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760453204319, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 44.7
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760453204319, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760497519799, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760497519799, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1087,7 +1087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760711245992, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1984668760711245992, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2494,7 +2494,7 @@ PrefabInstance:
       objectReference: {fileID: 827452296}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: _penSize
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: rayCount
@@ -2510,11 +2510,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: radiusRate
-      value: 0.02
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: maxDistance
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: echoMaterial
@@ -2526,15 +2526,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime1
-      value: 2699
+      value: 2891
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime2
-      value: 6746
+      value: 7517
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime3
-      value: 13878
+      value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 4562528039742726554, guid: 2e87fc354cede2c4db249171d19a4314, type: 3}
       propertyPath: gradient.ctime4
