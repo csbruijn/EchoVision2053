@@ -6,6 +6,8 @@ public class EchoCaster : MonoBehaviour
 {
 
     public int rayCount = 360;
+    private int iterations; 
+
     public float _startDistance = 40f;
     public float maxDistance = 40f; 
 
@@ -92,15 +94,26 @@ public class EchoCaster : MonoBehaviour
 
 
 
-        for (int I = 0; I < rayCount; I++)
+        for (int I = 0; I < rayCount/2; I++)
         {
-            float angleVert = I * 360f / rayCount;
+            float angleVert = (I * 360f / rayCount)  ;
 
-            for (int i = 0; i < rayCount; i++)
+            if (I <= rayCount / 4)
             {
-                float angleHor = i * 360f / rayCount;
+                iterations = I;
+            }
+            else
+            {
+                iterations = rayCount / 2 - I;
+            }
 
-                Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.forward;
+
+
+            for (int i = 0; i < iterations; i++)
+            {
+                float angleHor = (i * 360f / iterations) ;
+
+                Vector3 direction = Quaternion.Euler(angleVert, angleHor, 0) * transform.up;
 
                 if (Physics.Raycast(_origin.position, direction, out _touch, _distance, layerMask))
                 {
