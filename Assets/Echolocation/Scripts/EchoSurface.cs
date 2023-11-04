@@ -1,14 +1,21 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EchoSurface : MonoBehaviour
 {
-    public Texture2D texture;
+    
     private Material material;
     private GameObject echoManager;
 
+    [SerializeField]
     public Vector2 textureSize = new Vector2(2048, 2048);
+    public Texture2D texture;
+    [SerializeField]
+    private Texture2D blackTexture;
+
 
     private List <EchoData> PendingEchoData = new List <EchoData>();
     private bool needsTextureUpdate;
@@ -38,14 +45,16 @@ public class EchoSurface : MonoBehaviour
         echoManager = GameObject.Find("EchoManager");
 
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+        blackTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
 
+        BlackOutInitialize();
         material = r.material;
         r.material.mainTexture = texture;
         fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
         maxRadius = echoManager.GetComponent<EchoCaster>().maxDistance;
         radiusRate = echoManager.GetComponent<EchoCaster>().radiusRate;
 
-        BlackOut(); 
+       
     }
 
     void Update()
@@ -124,18 +133,25 @@ public class EchoSurface : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// This function changes all pixels the texture to turn black 
-    /// </summary>
-    private void BlackOut()
+    private void BlackOutInitialize()
     {
-        Color[] pixelsStart = texture.GetPixels();
+        Color[] pixelsStart = blackTexture.GetPixels();
         for (int i = 0; i < pixelsStart.Length; i++)
         {
             pixelsStart[i] = Color.black;
         }
 
-        texture.SetPixels(pixelsStart);
+        blackTexture.SetPixels(pixelsStart);
+        BlackOut();
+    }
+
+
+    /// <summary>
+    /// This function changes all pixels the texture to turn black 
+    /// </summary>
+    private void BlackOut()
+    {
+        Graphics.CopyTexture(blackTexture, texture);
         texture.Apply();
     }
 
