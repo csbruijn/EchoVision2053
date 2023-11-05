@@ -100,11 +100,11 @@ public class EchoCaster : MonoBehaviour
 
             if (I <= rayCount / 4)
             {
-                iterations = I;
+                iterations = I*2;
             }
             else
             {
-                iterations = rayCount / 2 - I;
+                iterations = (rayCount/2  - I) *2 ;
             }
 
             //float offset = Random.Range(-10f, 10f);
