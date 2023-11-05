@@ -1735,7 +1735,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""path"": ""<XRController>{RightHand}/Primary2DAxis"",
                     ""interactions"": ""Sector(directions=12,sweepBehavior=1),Sector(directions=2,sweepBehavior=2)"",
                     ""processors"": """",
-                    ""groups"": ""Generic XR Controller"",
+                    ""groups"": ""Continuous Move"",
                     ""action"": ""Turn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
