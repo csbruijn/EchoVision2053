@@ -9,6 +9,10 @@ TagManager:
   - Train
   - echoSurface
   - EchoSurface
+  - TextShower2
+  - TextShower3
+  - TextShower4
+  - Phone
   layers:
   - Default
   - TransparentFX
