@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.VisualScripting;
+using System.Collections;
 
 public class PlayerVoiceInteractionScript : MonoBehaviour
 {
     public GameObject talkingSprite;
     private VoiceCoroutineScript voiceCoroutineScript;
     private bool isCoroutineRunning = false;
+    private bool hasEnteredCollider = false;
 
     void Start()
     {
@@ -28,9 +26,21 @@ public class PlayerVoiceInteractionScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("TextShower"))
         {
-            Debug.Log("Played");
-            StartCoroutine(PlaySequenceIfNotRunning());
+            Debug.Log("Entered");
+            if (!hasEnteredCollider)
+            {
+                StartCoroutine(PlaySequenceIfNotRunning());
+                hasEnteredCollider = true;
+            }
             talkingSprite.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("TextShower"))
+        {
+            hasEnteredCollider = false;
         }
     }
 
