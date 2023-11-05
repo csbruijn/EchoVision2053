@@ -7,7 +7,7 @@ public class AudioOnTrigger : MonoBehaviour
     public AudioSource sound;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("SoundCollision"))
+        if (other.gameObject.CompareTag("NewSoundTag"))
         {
             sound.Play();
         }

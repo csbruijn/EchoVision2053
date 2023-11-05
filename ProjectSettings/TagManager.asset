@@ -10,6 +10,7 @@ TagManager:
   - echoSurface
   - EchoSurface
   - SoundCollision
+  - NewSoundTag
   layers:
   - Default
   - TransparentFX
