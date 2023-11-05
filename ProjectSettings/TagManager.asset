@@ -7,11 +7,13 @@ TagManager:
   - Anchor
   - TextShower
   - Train
+  - echoSurface
+  - EchoSurface
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EchoSurface
   - Water
   - UI
   - 
