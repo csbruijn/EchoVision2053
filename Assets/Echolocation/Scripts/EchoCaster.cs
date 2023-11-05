@@ -73,12 +73,7 @@ public class EchoCaster : MonoBehaviour
     private void CastEcho()
     {
 
-
-
-       
-
         ResetUVs();
-
 
         Color[] raycastColors = new Color[_penSize * _penSize];
 
@@ -86,8 +81,6 @@ public class EchoCaster : MonoBehaviour
         {
             raycastColors[i] = Color.clear;
         }
-
-
 
         for (int I = 0; I < rayCount/2; I++)
         {

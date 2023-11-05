@@ -42,12 +42,15 @@ public class EchoSurface : MonoBehaviour
     {
         var r = GetComponent<Renderer>();
 
+        gameObject.layer = LayerMask.NameToLayer("EchoSurface");
+
         echoManager = GameObject.Find("EchoManager");
 
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
         blackTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
 
         BlackOutInitialize();
+
         material = r.material;
         r.material.mainTexture = texture;
         fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
