@@ -12,6 +12,9 @@ public class EchoSurface : MonoBehaviour
     private GameObject echoManager;
 
     public Vector2 textureSize = new Vector2(2048, 2048);
+
+
+
     public Texture2D texture;
     [SerializeField]
     private Texture2D blackTexture;
@@ -40,7 +43,25 @@ public class EchoSurface : MonoBehaviour
 
     void Start()
     {
-        var r = GetComponent<Renderer>();
+        Renderer r = GetComponent<Renderer>();
+
+        Material[] materials = Resources.FindObjectsOfTypeAll<Material>();
+
+        foreach (Material material in materials)
+        {
+            if (material.name == "EchoSurface")
+            {
+                r.material = material;
+                break;
+            }
+        }
+
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        if (meshCollider == null)
+        {
+            meshCollider = gameObject.AddComponent<MeshCollider>();
+        }
+
 
         gameObject.layer = LayerMask.NameToLayer("EchoSurface");
 
