@@ -102,10 +102,7 @@ public class EchoSurface : MonoBehaviour
             material.SetFloat("_Radius", echoRadius);
 
         }
-        //else 
-        //{
-        //    //FadeBlack(fadeSpeed);
-        //}
+       
     }
 
     /// <summary>
@@ -172,21 +169,6 @@ public class EchoSurface : MonoBehaviour
         texture.Apply();
     }
 
-    /// <summary>
-    /// This function should've provided a fade to black. 
-    /// </summary>
-    /// <param name="_fadeSpeed"></param>
-    private void FadeBlack(float _fadeSpeed)
-    {
-        
-        fadingFactor += _fadeSpeed;
-        material.SetFloat("_FadingFactor", fadingFactor);
-
-        if (fadingFactor == 1)
-        {
-            fadingToBlack = false;
-        }
-    }
 
 }
 

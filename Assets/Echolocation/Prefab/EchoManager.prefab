@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayCount: 540
-  maxDistance: 20
+  maxDistance: 15
   _origin: {fileID: 0}
   echoMat: {fileID: 2100000, guid: bc397be6a06d48b43a15c9a3f270914d, type: 2}
   _penSize: 8
@@ -99,3 +99,4 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   fadeSpeed: 0.005
   radiusRate: 0.01
+  paintedUVs: []
