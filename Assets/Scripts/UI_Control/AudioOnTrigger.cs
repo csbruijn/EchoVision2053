@@ -5,9 +5,9 @@ using UnityEngine;
 public class AudioOnTrigger : MonoBehaviour
 {
     public AudioSource sound;
-    public void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "SoundCollision")
+        if (other.gameObject.CompareTag("SoundCollision"))
         {
             sound.Play();
         }
