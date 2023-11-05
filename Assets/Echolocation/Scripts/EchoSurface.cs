@@ -1,14 +1,24 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EchoSurface : MonoBehaviour
 {
-    public Texture2D texture;
+    
     private Material material;
     private GameObject echoManager;
 
     public Vector2 textureSize = new Vector2(2048, 2048);
+
+
+
+    public Texture2D texture;
+    [SerializeField]
+    private Texture2D blackTexture;
+
 
     private List <EchoData> PendingEchoData = new List <EchoData>();
     private bool needsTextureUpdate;
@@ -33,11 +43,34 @@ public class EchoSurface : MonoBehaviour
 
     void Start()
     {
-        var r = GetComponent<Renderer>();
+        Renderer r = GetComponent<Renderer>();
+
+        Material[] materials = Resources.FindObjectsOfTypeAll<Material>();
+
+        foreach (Material material in materials)
+        {
+            if (material.name == "EchoSurface")
+            {
+                r.material = material;
+                break;
+            }
+        }
+
+        MeshCollider meshCollider = GetComponent<MeshCollider>();
+        if (meshCollider == null)
+        {
+            meshCollider = gameObject.AddComponent<MeshCollider>();
+        }
+
+
+        gameObject.layer = LayerMask.NameToLayer("EchoSurface");
 
         echoManager = GameObject.Find("EchoManager");
 
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+        blackTexture = new Texture2D((int)textureSize.x, (int)textureSize.y);
+
+        BlackOutInitialize();
 
         material = r.material;
         r.material.mainTexture = texture;
@@ -45,11 +78,12 @@ public class EchoSurface : MonoBehaviour
         maxRadius = echoManager.GetComponent<EchoCaster>().maxDistance;
         radiusRate = echoManager.GetComponent<EchoCaster>().radiusRate;
 
-        BlackOut(); 
+       
     }
 
     void Update()
     {
+        
         if (needsTextureUpdate)
         {
             BlackOut();
@@ -62,18 +96,13 @@ public class EchoSurface : MonoBehaviour
             blackOutComplete = false;
         }
 
-        
-
         if (echoRadius < maxRadius)
         {
             echoRadius = echoRadius + radiusRate;
             material.SetFloat("_Radius", echoRadius);
 
         }
-        else 
-        {
-            //FadeBlack(fadeSpeed);
-        }
+       
     }
 
     /// <summary>
@@ -86,8 +115,6 @@ public class EchoSurface : MonoBehaviour
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
         
-        
-
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
         needsTextureUpdate = true;
@@ -99,18 +126,13 @@ public class EchoSurface : MonoBehaviour
     /// </summary>
     private void ApplyEchoCast()
     {
-
+        // reset shader position 
         Vector3 newCenterX = echoManager.GetComponent<EchoCaster>()._origin.position;
         material.SetVector("_Center", newCenterX);
 
-        //if (echoRadius != 0) 
-        {
-            echoRadius = 0f;
-            material.SetFloat("_Radius", echoRadius);
-        }
+        echoRadius = 0f;
+        material.SetFloat("_Radius", echoRadius);
 
-
-        
         foreach (EchoData data in PendingEchoData) 
         {
             int clampedX = Mathf.Clamp(data.x, 0, texture.width - data.penSize);
@@ -121,40 +143,32 @@ public class EchoSurface : MonoBehaviour
         texture.Apply();
         PendingEchoData.Clear();
         needsTextureUpdate=false;
+
+        echoManager.GetComponent<EchoCaster>().RegisterPaintedUV(this);
+
     }
 
-
-    /// <summary>
-    /// This function changes all pixels the texture to turn black 
-    /// </summary>
-    private void BlackOut()
+    private void BlackOutInitialize()
     {
-        Color[] pixelsStart = texture.GetPixels();
+        Color[] pixelsStart = blackTexture.GetPixels();
         for (int i = 0; i < pixelsStart.Length; i++)
         {
             pixelsStart[i] = Color.black;
         }
 
-        texture.SetPixels(pixelsStart);
-        texture.Apply();
+        blackTexture.SetPixels(pixelsStart);
+        BlackOut();
     }
 
     /// <summary>
-    /// This function should've provided a fade to black. 
+    /// This function changes all pixels the texture to turn black 
     /// </summary>
-    /// <param name="_fadeSpeed"></param>
-    private void FadeBlack(float _fadeSpeed)
+    public void BlackOut()
     {
-        
-        fadingFactor += _fadeSpeed;
-
-        material.SetFloat("_FadingFactor", fadingFactor);
-
-        if (fadingFactor == 1)
-        {
-            fadingToBlack = false;
-        }
+        Graphics.CopyTexture(blackTexture, texture);
+        texture.Apply();
     }
+
 
 }
 
