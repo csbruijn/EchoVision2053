@@ -46,12 +46,7 @@ public class EchoCaster : MonoBehaviour
         echoActive = true;
         layerMask = 1 << LayerMask.NameToLayer("EchoSurface");
 
-
         _distance = maxDistance;
-
-
-        //InvokeRepeating("CastEchoFast", 2.0f, timeBetweenEcho);
-
 
     }
 
@@ -77,44 +72,9 @@ public class EchoCaster : MonoBehaviour
 
     void Update()
     {
-
         if (echoActive)
         {
-            //CastEchoSlow();
             CastEchoFast();
-
-        }
-
-
-        //timer--;
-        //if (timer < 0 && !echoActive)
-        //{
-        //    echoActive = true;
-
-        //}
-    }
-
-
-  
-
-    private void CastOutwards()
-    {
-
-        // REUSE THIS TO HAVE THE ECHO CAST OUTWARDS FRAME BY FRAME
-
-
-        if (Index == rayCount)
-        {
-            Index = 0;
-            echoActive = false;
-            return;
-        }
-        else if (Index < rayCount)
-        {
-
-            Index++;
-
-
         }
     }
 
@@ -142,7 +102,6 @@ public class EchoCaster : MonoBehaviour
                 iterations = (rayCount/2  - I) *2 ;
             }
 
-            //float offset = Random.Range(-10f, 10f);
 
             for (int i = 0; i < iterations; i++)
             {
@@ -155,7 +114,6 @@ public class EchoCaster : MonoBehaviour
 
                     EchoSurface _echoSurface = _touch.transform.GetComponent<EchoSurface>();
 
-                    //if (_touch.transform.CompareTag("EchoSurface"))
                     if (_echoSurface != null)
                     {
 
@@ -171,8 +129,6 @@ public class EchoCaster : MonoBehaviour
                         float t = Mathf.Clamp01(distance / maxDistance);
                         Color raycastColor = gradient.Evaluate(t);
 
-                        //int index = x + y * _penSize;
-                        //raycastColors[index] = raycastColor;
 
                         raycastColors = Enumerable.Repeat(raycastColor, _penSize * _penSize).ToArray();
                         _echoSurface.QueueEcho(x, y, _penSize, raycastColors);
