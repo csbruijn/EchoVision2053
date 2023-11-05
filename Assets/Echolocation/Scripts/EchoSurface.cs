@@ -10,7 +10,6 @@ public class EchoSurface : MonoBehaviour
     private Material material;
     private GameObject echoManager;
 
-    [SerializeField]
     public Vector2 textureSize = new Vector2(2048, 2048);
     public Texture2D texture;
     [SerializeField]
@@ -59,7 +58,9 @@ public class EchoSurface : MonoBehaviour
 
     void Update()
     {
-        if (needsTextureUpdate)
+        
+
+            if (needsTextureUpdate)
         {
             BlackOut();
             blackOutComplete = true;

@@ -1,6 +1,9 @@
 
+
+using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EchoCaster : MonoBehaviour
 {
@@ -29,6 +32,15 @@ public class EchoCaster : MonoBehaviour
 
     public float radiusRate = .02f;
 
+    public XRIDefaultInputActions _xrInput;
+    private InputAction castEcho; 
+
+
+    private void Awake()
+    {
+        _xrInput = new XRIDefaultInputActions();
+    }
+
     void Start()
     {
         echoActive = true;
@@ -43,8 +55,29 @@ public class EchoCaster : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        castEcho = _xrInput.XRIRightHand.SendEcho;
+        castEcho.Enable();
+        castEcho.performed += SendEcho;
+    }
+
+    private void OnDisable()
+    {
+        _xrInput.Disable();
+    }
+
+    private void SendEcho(InputAction.CallbackContext context)
+    {
+        Debug.Log("Cast Echo");
+        echoActive = true;
+    }
+
+
+
     void Update()
     {
+
         if (echoActive)
         {
             //CastEchoSlow();
@@ -52,15 +85,17 @@ public class EchoCaster : MonoBehaviour
 
         }
 
-        timer--;
-        if (timer < 0 && !echoActive)
-        {
-            echoActive = true;
 
-        }
+        //timer--;
+        //if (timer < 0 && !echoActive)
+        //{
+        //    echoActive = true;
 
-
+        //}
     }
+
+
+  
 
     private void CastOutwards()
     {
