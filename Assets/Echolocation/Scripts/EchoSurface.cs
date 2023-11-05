@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -59,8 +60,7 @@ public class EchoSurface : MonoBehaviour
     void Update()
     {
         
-
-            if (needsTextureUpdate)
+        if (needsTextureUpdate)
         {
             BlackOut();
             blackOutComplete = true;
@@ -72,18 +72,16 @@ public class EchoSurface : MonoBehaviour
             blackOutComplete = false;
         }
 
-        
-
         if (echoRadius < maxRadius)
         {
             echoRadius = echoRadius + radiusRate;
             material.SetFloat("_Radius", echoRadius);
 
         }
-        else 
-        {
-            //FadeBlack(fadeSpeed);
-        }
+        //else 
+        //{
+        //    //FadeBlack(fadeSpeed);
+        //}
     }
 
     /// <summary>
@@ -96,8 +94,6 @@ public class EchoSurface : MonoBehaviour
     public void QueueEcho(int x, int y, int penSize, Color[] colors)
     {
         
-        
-
         EchoData data = new EchoData { x = x , y = y, penSize = penSize, colors = colors };
         PendingEchoData.Add(data);
         needsTextureUpdate = true;
@@ -109,18 +105,13 @@ public class EchoSurface : MonoBehaviour
     /// </summary>
     private void ApplyEchoCast()
     {
-
+        // reset shader position 
         Vector3 newCenterX = echoManager.GetComponent<EchoCaster>()._origin.position;
         material.SetVector("_Center", newCenterX);
 
-        //if (echoRadius != 0) 
-        {
-            echoRadius = 0f;
-            material.SetFloat("_Radius", echoRadius);
-        }
+        echoRadius = 0f;
+        material.SetFloat("_Radius", echoRadius);
 
-
-        
         foreach (EchoData data in PendingEchoData) 
         {
             int clampedX = Mathf.Clamp(data.x, 0, texture.width - data.penSize);
@@ -131,8 +122,10 @@ public class EchoSurface : MonoBehaviour
         texture.Apply();
         PendingEchoData.Clear();
         needsTextureUpdate=false;
-    }
 
+        echoManager.GetComponent<EchoCaster>().RegisterPaintedUV(this);
+
+    }
 
     private void BlackOutInitialize()
     {
@@ -146,11 +139,10 @@ public class EchoSurface : MonoBehaviour
         BlackOut();
     }
 
-
     /// <summary>
     /// This function changes all pixels the texture to turn black 
     /// </summary>
-    private void BlackOut()
+    public void BlackOut()
     {
         Graphics.CopyTexture(blackTexture, texture);
         texture.Apply();
@@ -164,7 +156,6 @@ public class EchoSurface : MonoBehaviour
     {
         
         fadingFactor += _fadeSpeed;
-
         material.SetFloat("_FadingFactor", fadingFactor);
 
         if (fadingFactor == 1)
