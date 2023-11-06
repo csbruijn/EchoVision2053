@@ -95,13 +95,13 @@ public class UISpriteVoice : MonoBehaviour
 
     private IEnumerator DestroyObject3()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3.5f);
         Destroy(objectToDestroy3);
     }
 
     private IEnumerator DestroyObject4()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         Destroy(objectToDestroy4);
     }
 }
