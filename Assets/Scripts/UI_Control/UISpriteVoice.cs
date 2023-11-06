@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class UISpriteVoice : MonoBehaviour
 {
+    public AudioSource gameSound;
+    public AudioSource coffeeSound;
+
     public TMP_Text startText;
     public TMP_Text missionText;
     public GameObject phoneToDestroy;
@@ -29,6 +32,7 @@ public class UISpriteVoice : MonoBehaviour
     {
         StartCoroutine(StartText());
         missionText.enabled = false;
+        gameSound.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,6 +69,11 @@ public class UISpriteVoice : MonoBehaviour
         {
             StartCoroutine(MissionText());
             Destroy(phoneToDestroy);
+        }
+
+        if (other.gameObject.CompareTag("Coffee"))
+        {
+            coffeeSound.Play();
         }
     }
 
