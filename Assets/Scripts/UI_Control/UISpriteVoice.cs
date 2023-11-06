@@ -13,6 +13,7 @@ public class UISpriteVoice : MonoBehaviour
     public GameObject phoneToDestroy;
 
     public AudioSource audioToPlay;
+    public AudioSource trainLeaving;
     public GameObject imageToShow;
     public GameObject objectToDestroy;
 
@@ -35,11 +36,18 @@ public class UISpriteVoice : MonoBehaviour
         gameSound.Play();
     }
 
+     
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("TextShower"))
         {
             audioToPlay.Play();
+
+            StartCoroutine(trainLeavesDelayed()); 
+
+
             imageToShow.SetActive(true);
             StartCoroutine(DestroyObject());
         }
@@ -76,6 +84,14 @@ public class UISpriteVoice : MonoBehaviour
             coffeeSound.Play();
         }
     }
+
+
+    private IEnumerator trainLeavesDelayed()
+    {
+        yield return new WaitForSeconds(7f);
+        trainLeaving.Play();
+    }
+
 
     private IEnumerator StartText()
     {

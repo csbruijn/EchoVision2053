@@ -24,9 +24,9 @@ public class EchoSurface : MonoBehaviour
     private bool needsTextureUpdate;
     private bool blackOutComplete; 
 
-    private bool fadingToBlack = true;
-    private float fadeSpeed;
-    private float fadingFactor = 1.0f;
+    //private bool fadingToBlack = true;
+    //private float fadeSpeed;
+    //private float fadingFactor = 1.0f;
 
     private float echoRadius = 0f;
     private float maxRadius;
@@ -74,7 +74,7 @@ public class EchoSurface : MonoBehaviour
 
         material = r.material;
         r.material.mainTexture = texture;
-        fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
+        //fadeSpeed = echoManager.GetComponent<EchoCaster>().fadeSpeed;
         maxRadius = echoManager.GetComponent<EchoCaster>().maxDistance;
         radiusRate = echoManager.GetComponent<EchoCaster>().radiusRate;
 
